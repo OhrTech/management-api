@@ -19,7 +19,7 @@ policy allows) and `takeOver: true` (end someone else's open session, after a 40
 
 ```json
 {
-  "session": {"sessionId": "…", "deviceId": 42, "status": "waiting", "consent": "notify", "expiresAt": "…"},
+  "session": {"sessionId": "…", "deviceId": 42, "status": "pending", "consent": "notify", "expiresAt": "…"},
   "connection": {"url": "wss://live.ohrtech.net", "token": "…"},
   "embed": {"url": "https://api.ohrtech.net/embed/v1/remote-control/…#token=…", "expiresAt": "…"},
   "policyConsent": "notify"

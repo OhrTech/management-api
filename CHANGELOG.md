@@ -2,6 +2,19 @@
 
 Changes to the OhrTech Management API (`openapi.json`). Within `v1` the API only adds.
 
+## 2026-11-06: privileged permissions by OhrTech approval
+
+- `ListAppPermissions` (`GET /v1/apps/{appId}/permissions`): the privileged Android permissions an
+  app's versions request, each `granted`, `waiting` (not approved; the app runs without it) or
+  `never`, with `approvedFor` (`org` or `app`) and the requesting `versionCodes`.
+- `ListOrgPermissionApprovals` (`GET /v1/orgs/{orgId}/permission-approvals`): what OhrTech approved
+  for an organisation; every app of the organisation that requests one gets it.
+- OhrTech staff only: `ApproveOrgPermission`, `WithdrawOrgPermission`
+  (`/v1/orgs/{orgId}/permission-approvals/{permission}`) and `ApproveAppPermission`,
+  `WithdrawAppPermission` (`/v1/apps/{appId}/permission-approvals/{permission}`, OhrTech's apps).
+  400 "Never granted", "No approval needed", "Platform only" or "Not a privileged permission".
+- Apps the hub installs get the runtime and special-access permissions they request automatically.
+
 ## 2026-11-05: update timing, app kinds, fleet policies
 
 - `GetUpdateTiming`, `SetUpdateTiming`, `ClearUpdateTiming` (`/v1/fleets/{fleetId}/update-timing`):

@@ -2,6 +2,46 @@
 
 Changes to the OhrTech Management API (`openapi.json`). Within `v1` the API only adds.
 
+## 2026-11-08: the Device SDK's server side
+
+For apps that use the [Device SDK](https://docs.ohrtech.net/device-sdk/) on your devices.
+
+- Device SDK access: `GetSdkAccess`, `SetSdkAccess`, `ClearSdkAccess`
+  (`/v1/fleets/{fleetId}/apps/{appId}/sdk-access`): which areas an app may change on a fleet's
+  devices (`wifi`, `network`, `kiosk`, `power`, `settings`), inherited down the fleet tree.
+  `ListDeviceEvents` (`GET /v1/devices/{deviceId}/events`): what apps changed through the SDK, what
+  the Agent refused, and apps' own events.
+- Push: `SendPush` (`POST /v1/push`, up to 500 sealed and signed messages, `normal` or `high`
+  priority, `ttl`, `collapseKey`; needs the new `SendPush` permission), `GetPushStatus`
+  (`GET /v1/push/{id}`), `ListPushTokens` (`GET /v1/devices/{deviceId}/push-tokens`). A token ends
+  when the app registers again or unregisters, is uninstalled, or the device no longer has the app
+  in its fleet (`the token has ended (left_fleet)`).
+- Keys and attestation: `VerifyKeyAttestation` (`POST /v1/devices/{deviceId}/key-attestations/verify`)
+  for an app's TEE KEM keys; `VerifyAttestation` (`POST /v1/attestations/verify`), `GetAttestationRoot`
+  and `GetAttestationStatus` (`/v1/attestations/root`, `/v1/attestations/status`, no sign-in), and
+  `RevokeDeviceAttestation` (`POST /v1/devices/{deviceId}/attestation/revoke`).
+- Managed app configuration: `GetAppConfigSchema` (`GET /v1/apps/{appId}/config-schema`), and
+  `Get`/`Set`/`Clear` `FleetAppConfig` and `DeviceAppConfig`
+  (`/v1/fleets/{fleetId}/apps/{appId}/config`, `/v1/devices/{deviceId}/apps/{appId}/config`). Secret
+  values are sealed and shown as `"*"`.
+- Kiosk: `ExitKiosk` (`POST /v1/devices/{deviceId}/kiosk/exit`): lift kiosk mode for some minutes
+  without the exit PIN, or end that early.
+- Crash reports and diagnostics: `ListAppCrashes` (`GET /v1/apps/{appId}/crashes`), `ListCrashReports`
+  (`GET /v1/apps/{appId}/crashes/{signature}`), `ListDeviceCrashes` (`GET /v1/devices/{deviceId}/crashes`);
+  `RequestLogBundle` (`POST /v1/devices/{deviceId}/apps/{appId}/log-bundles`) and `ListLogBundles`
+  (`GET /v1/devices/{deviceId}/log-bundles`, with an hour's download link).
+- USB devices: `GetUsbDevices`, `SetUsbDevices`, `ClearUsbDevices`
+  (`/v1/fleets/{fleetId}/apps/{appId}/usb-devices`): devices and accessories an app may use without
+  asking; `ListDevicePeripherals` (`GET /v1/devices/{deviceId}/usb-devices`): what is attached.
+- Certificates for apps: `CreateIssuingCa`, `ListIssuingCas` (`/v1/orgs/{orgId}/issuing-cas`),
+  `UploadIssuingCaCertificate` (`PUT .../{issuingCaId}/org-certificate`), `RevokeIssuingCa`
+  (`POST .../{issuingCaId}/revoke`); `GetAppCertificates`, `SetAppCertificates`, `ClearAppCertificates`
+  (`/v1/fleets/{fleetId}/apps/{appId}/certificates`); `ListDeviceCertificates`
+  (`GET /v1/devices/{deviceId}/certificates`); `GetDeviceIdentityRoot` (`GET /v1/device-identity/root`,
+  no sign-in).
+- New settings: the kiosk exit PIN and its triggers, `apps.crash_reports`, `usb.devices` and
+  `apps.certificates` (the last two set per app with the operations above).
+
 ## 2026-11-06: privileged permissions by OhrTech approval
 
 - `ListAppPermissions` (`GET /v1/apps/{appId}/permissions`): the privileged Android permissions an

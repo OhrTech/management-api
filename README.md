@@ -14,9 +14,10 @@ This repository holds:
 - [`CHANGELOG.md`](CHANGELOG.md): what changed, and when. Within `v1` the API only adds: new
   operations, new optional fields, new values. Anything else becomes `v2`, served alongside `v1`.
 
-> The Management API runs on your servers and manages many devices. The **Device SDK**
-> (`device-sdk-*`, coming later) is for apps running *on* a device, to work with the OhrTech Agent
-> there. Both are parts of the OhrTech SDK.
+> The Management API runs on your servers and manages many devices. The
+> [**Device SDK**](https://docs.ohrtech.net/device-sdk/) ([Android](https://github.com/OhrTech/device-sdk-android))
+> is for apps running *on* a device, to work with the OhrTech Agent there. Both are parts of the
+> OhrTech SDK.
 
 ## SDKs
 

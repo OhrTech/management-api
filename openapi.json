@@ -3396,7 +3396,7 @@
         "tags": [
           "Device attestation"
         ],
-        "summary": "Stop vouching for a device's attestation keys (lost, retired or compromised): its chains then fail",
+        "summary": "Stop vouching for a device (lost, retired or compromised): its attestation chains fail, and it gets no new attestation keys",
         "operationId": "RevokeDeviceAttestation",
         "parameters": [
           {
@@ -10981,6 +10981,11 @@
           "package": {
             "type": "string",
             "description": "The package the key must belong to, if the server wants it checked.",
+            "nullable": true
+          },
+          "signerSha256": {
+            "type": "string",
+            "description": "The SHA-256 of the app's signing certificate (hex), if the server wants it checked: a\n            Problem unless one of the app's signers matches. Without it, compare `signerSha256` in the answer yourself.",
             "nullable": true
           }
         },

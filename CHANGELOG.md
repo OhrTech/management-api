@@ -41,6 +41,9 @@ For apps that use the [Device SDK](https://docs.ohrtech.net/device-sdk/) on your
   no sign-in).
 - New settings: the kiosk exit PIN and its triggers, `apps.crash_reports`, `usb.devices` and
   `apps.certificates` (the last two set per app with the operations above).
+- `VerifyAttestationRequest.signerSha256`: the app's signing certificate is checked too (a problem when
+  it doesn't match). `display.timeout` is a number of seconds (setting kind `seconds`, 1 to 2147483):
+  any value, not only the listed ones.
 
 ## 2026-11-06: privileged permissions by OhrTech approval
 

@@ -2,6 +2,15 @@
 
 Changes to the OhrTech Management API (`openapi.json`). Within `v1` the API only adds.
 
+## 2026-11-09: per-app response timeouts
+
+- `GetResponseTimeout`, `SetResponseTimeout`, `ClearResponseTimeout`
+  (`/v1/fleets/{fleetId}/apps/{appId}/response-timeout`): how long an app's main thread may stay busy
+  before it counts as not responding, 1 to 2147483 seconds, inherited down the fleet tree. It is the app's
+  "isn't responding" (ANR) time on OhrTech OS 2026110901 and later, and for the kiosk app the kiosk
+  watchdog's timeout in place of the one the app gives its Device SDK heartbeat (OhrTech Agent 1062 or
+  later). The fleet setting is `apps.response_timeout`, `{"app_…": seconds}`.
+
 ## 2026-11-08: the Device SDK's server side
 
 For apps that use the [Device SDK](https://docs.ohrtech.net/device-sdk/) on your devices.

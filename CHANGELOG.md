@@ -2,6 +2,21 @@
 
 Changes to the OhrTech Management API (`openapi.json`). Within `v1` the API only adds.
 
+## 2026-11-10: web apps and web push
+
+[Web apps](https://docs.ohrtech.net/web-apps/): your websites as apps on your devices.
+
+- Web apps: `PreviewWebApp` (`POST /v1/web-apps/preview`), `CreateWebApp` (`POST /v1/orgs/{orgId}/web-apps`),
+  `GetWebApp` and `UpdateWebApp` (`/v1/apps/{appId}/web`: mode `locked`, `sdk` or `packaged`, display, scope rule, and
+  the packaged policy `webBundleIds`, `updateManifestUrl`, `updateChannel`, `pinnedVersion`, `allowDowngrades`),
+  `GetWebAppManifestChanges` and `ApproveWebAppManifestChanges` (`/v1/apps/{appId}/web/manifest-changes`), and
+  `GetWebSigningKey` (`/v1/orgs/{orgId}/web-signing-key`).
+- Packaged web apps: `UploadWebBundle` (the `.swbn` as the body, `channels` in the query), `ListWebBundles`
+  (`/v1/apps/{appId}/web/bundles`), `DeleteWebBundle` (`/v1/apps/{appId}/web/bundles/{version}`) and
+  `GetWebAppVersions` (`/v1/apps/{appId}/web/versions`).
+- `SendPush`: a message may give `subscription`, a web app's push subscription (its `PushSubscription.toJSON()`), in
+  place of `token`.
+
 ## 2026-11-09: per-app response timeouts
 
 - `GetResponseTimeout`, `SetResponseTimeout`, `ClearResponseTimeout`
